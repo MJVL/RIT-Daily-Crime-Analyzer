@@ -1,4 +1,5 @@
 from pdf_parser import extract_text_from_pdf
+from model import Report
 import re 
 
 def generate_reports(text):
@@ -12,13 +13,9 @@ def generate_reports(text):
             for this reason we must handle multiple location cases
             """
             keys = report.split(':')
-            print(keys)
-            print('Date Reported: ' + keys[0].split('-')[0].strip())
-            print('Report #' + str(keys[-1]))
-            print('Location ' + keys[3].replace('Address', '').strip())
-            exit()
-            #print('Date Reported:' + report)
-            # print(dict(map(lambda s : s.split(':'), 'Date Reported:' + report)))
+            print(report)
+            r = Report(int(re.findall(r'(\d{6})', report)[-1]), (keys[0].split('-')[0].strip()), keys[3].replace('Address', '').strip(), report.split('Case Incident(s):')[1].split('-', 1)[0].strip())
+            print(r)
 
 def main(pdfs):
     text = {}
