@@ -14,7 +14,10 @@ def generate_reports(text):
             """
             keys = report.split(':')
             print(report)
-            r = Report(int(re.findall(r'(\d{6})', report)[-1]), (keys[0].split('-')[0].strip()), keys[3].replace('Address', '').strip(), report.split('Case Incident(s):')[1].split('-', 1)[0].strip())
+            r = Report(int(re.findall(r'(\d{6})',report)[-1]), 
+                 keys[0].split('-')[0].strip(),
+                 keys[3].replace('Address', '').strip(),
+                 report.split('Case Incident(s):')[1].split('-', 1)[0].strip())
             print(r)
 
 def main(pdfs):
