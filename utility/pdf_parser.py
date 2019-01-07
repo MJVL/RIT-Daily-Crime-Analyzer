@@ -4,6 +4,7 @@ from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfpage import PDFPage
  
+
 def extract_text_from_pdf(pdf_path):
     resource_manager = PDFResourceManager()
     fake_file_handle = io.StringIO()
@@ -17,4 +18,3 @@ def extract_text_from_pdf(pdf_path):
     fake_file_handle.close()
     if text:
         return text
-

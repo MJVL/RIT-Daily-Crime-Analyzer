@@ -1,16 +1,16 @@
-from pdf_parser import extract_text_from_pdf
-from model import Report
+from utility.pdf_parser import extract_text_from_pdf
+from model.report import Report
 import re 
 
 def generate_reports(text):
+    """
+    While the pdf scanner can accurately parse the text, the order can be quite random.
+    For this reason we must handle countless location and formatting cases, thus we use regex.
+    """
     reports = []
     for chunk in text.split('Case Log Media')[1:]:
         re.sub('\s+', ' ', chunk)
         for report in chunk.split('Date Reported:')[1:]:
-            """
-            While the pdf scanner can accurately parse the text, the order can be quite random.
-            For this reason we must handle countless location and formatting cases, thus we use regex.
-            """
             print(report)
             r = Report(
                  int(re.findall(r'(\d{6})', report)[-1]) if len(re.findall(r'(\d{6})', report)) > 0 else reports[-1].report_number + 1,
