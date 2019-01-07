@@ -8,23 +8,23 @@ def generate_reports(text):
         re.sub('\s+', ' ', chunk)
         for report in chunk.split('Date Reported:')[1:]:
             """
-            while the pdf scanner can accurately parse the text,
-            the index and location of it can be random within each report
-            for this reason we must handle multiple location cases
+            While the pdf scanner can accurately parse the text, the order can be quite random.
+            For this reason we must handle multiple location cases, thus we use regex.
             """
-            keys = report.split(':')
-            print(report)
-            r = Report(int(re.findall(r'(\d{6})',report)[-1]), 
-                 keys[0].split('-')[0].strip(),
-                 keys[3].replace('Address', '').strip(),
-                 report.split('Case Incident(s):')[1].split('-', 1)[0].strip())
-            print(r)
+            r = Report(
+                 int(re.findall(r'(\d{6})', report)[-1]),
+                 re.findall(r'\d{2}/\d{2}/\d{2}', report)[0],
+                 re.findall(r'(?<=Location\s:\s)(.*)(?=\sAddress)', report)[-1], 
+                 re.findall(r'(?<=Case\sIncident\(s\):)(.*)(?=Synopsis)', report)[-1])
+            exit()
+
 
 def main(pdfs):
     text = {}
     for pdf in pdfs:
         text[pdf] = extract_text_from_pdf('data/' + pdf + '.pdf')
         generate_reports(text[pdf])
-    
+
+
 if __name__ == '__main__':
     main(['dec_2018'])
