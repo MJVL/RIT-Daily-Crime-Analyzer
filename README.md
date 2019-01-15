@@ -4,7 +4,7 @@ Generates statistics and figures from RIT daily crime logs.
 ## Progress
 * [x] PDF to Text
 * [x] Report Class
-* [ ] Text to Report Regex
+* [X] Text to Report Regex
 * [ ] Statistics
 * [ ] Figures
 * [ ] Automatic PDF Downloads
